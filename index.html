@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AR Model Placement</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="src/style.css">
+</head>
+
+<body>
+  <div id="content">
+    <div id="container"></div>
+    <button id="place-button">Place</button>
+    <div id="helper-block" class="helper-block hidden">
+      <p>Find an orange circle on the floor and place your object</p>
+      <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="25" cy="25" r="20" fill="orange" />
+        <circle cx="25" cy="25" r="15" fill="white" />
+        <circle cx="25" cy="25" r="5" fill="orange" />
+      </svg>
+    </div>
+    
+    <div id="infoPanel">
+      <button class="close" onclick="hideInfoPanel()">×</button>
+    
+      <!-- Small View -->
+      <div id="smallView">
+        <h2 id="modelTitle">Model Name</h2>
+        <p id="modelCompany"><strong>Company:</strong> Company Name</p>
+        <p id="modelCategory"><strong>Category:</strong> Category</p>
+        <p id="modelCountry"><strong>Country:</strong> Country</p>
+      </div>
+    
+      <!-- Full View -->
+      <div id="fullView" style="display: none;">
+        <h2 id="fullModelTitle">Model Name</h2>
+        <p><strong>Company:</strong> <span id="fullModelCompany">Company Name</span></p>
+        <p><strong>Category:</strong> <span id="fullModelCategory">Category</span></p>
+        <p><strong>Country:</strong> <span id="fullModelCountry">Country</span></p>
+        <p id="fullModelDescription">Description will go here.</p>
+        <p><strong>Sustainability:</strong> <span id="fullModelSustainability">Details about sustainability.</span></p>
+        <img id="fullModelImage" src="" alt="Model Image" style="width: 100%; margin-top: 10px;">
+      </div>
+    </div>
+
+  </div>
+  
+  <script src="src/main.js" type="module"></script>
+</body>
+
+</html>
