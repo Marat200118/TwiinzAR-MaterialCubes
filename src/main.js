@@ -19,6 +19,7 @@ let hitTestSourceRequested = false;
 let touchDown, touchX, touchY, deltaX, deltaY;
 let isInfoPanelFullView = false;
 let bounceInterval = null;
+let pointer;
 
 const placeButton = document.getElementById("place-button");
 const infoPanel = document.getElementById("infoPanel");
@@ -55,7 +56,23 @@ const init = async () => {
     domOverlay: { root: document.getElementById("content") },
   };
 
-  document.body.appendChild(ARButton.createButton(renderer, options));
+  const arButton = ARButton.createButton(renderer, options);
+  document.querySelector(".buttons-container").appendChild(arButton);
+  arButton.classList.add("styled-ar-button");
+
+  setTimeout(() => {
+    if (arButton.textContent === "START AR") {
+      arButton.textContent = "START EXPERIENCE";
+    }
+  }, 100);
+
+  arButton.addEventListener("click", () => {
+    if (arButton.textContent === "STOP AR") {
+      arButton.textContent = "Stop Experience";
+      window.location.href = "/index.html";
+    }
+  });
+
 
  const createGradientTexture = () => {
    const canvas = document.createElement("canvas");
@@ -173,7 +190,16 @@ const init = async () => {
   if (renderer.xr) {
     renderer.xr.addEventListener("sessionstart", () => {
       console.log("XR session started.");
+      arButton.classList.remove("styled-ar-button");
+      arButton.classList.add("stop-ar-button-centered");
       showHelperBlock();
+    });
+
+    renderer.xr.addEventListener("sessionend", () => {
+      console.log("XR session ended.");
+      arButton.classList.remove("stop-ar-button-centered");
+      arButton.classList.add("styled-ar-button");
+      hideHelperBlock();
     });
   }
 
@@ -267,10 +293,10 @@ const showInfoPanel = (data) => {
   ).innerHTML = `<strong>Company:</strong> ${data.company || "N/A"}`;
   document.getElementById(
     "modelCategory"
-  ).innerHTML = `<strong>Category:</strong> ${data.category || "N/A"}`;
+  ).innerHTML = `<strong>Material:</strong> ${data.material || "N/A"}`;
   document.getElementById(
-    "modelCountry"
-  ).innerHTML = `<strong>Country:</strong> ${data.company_location || "N/A"}`;
+    "modelMaterial"
+  ).innerHTML = `<strong>Produced in:</strong> ${data.company_location || "N/A"}`;
 
   // Full View Content
   document.getElementById("fullModelTitle").textContent = data.name || "N/A";
@@ -278,25 +304,26 @@ const showInfoPanel = (data) => {
     data.company || "N/A";
   document.getElementById("fullModelCategory").textContent =
     data.category || "N/A";
+  document.getElementById("fullModelMaterial").textContent =
+    data.material || "N/A";
   document.getElementById("fullModelCountry").textContent =
     data.company_location || "N/A";
+
   document.getElementById("fullModelDescription").textContent =
     data.description || "Description not available.";
   document.getElementById("fullModelSustainability").textContent =
     data.sustainability_info || "Sustainability information not available.";
   document.getElementById("fullModelImage").src = data.model_image || "";
 
-  // Reset Panel State
   panel.classList.remove("full-view");
   panel.style.bottom = "0";
-  panel.style.height = "auto"; // Reset height for small view
+  panel.style.height = "41vh";
   isInfoPanelFullView = false;
   panel.style.display = "block";
+  panel.style.marginBottom = "-2rem";
 
-  // Add Event Listeners
   panel.addEventListener("click", toggleInfoPanelFullView);
 
-  // Start Bounce Animation
   startBounceAnimation(panel);
 };
 
@@ -327,13 +354,15 @@ const toggleInfoPanelFullView = (event) => {
     panel.classList.remove("full-view");
     fullView.style.display = "none"; // Hide full view
     smallView.style.display = "block"; // Show small view
-    panel.style.height = "auto";
+    panel.style.height = "41vh";
     panel.style.bottom = "0";
+    panel.style.marginBottom = "-2rem";
     startBounceAnimation(panel);
   } else {
     // Expand to Full View
     panel.classList.add("full-view");
-    fullView.style.display = "block"; // Show full view
+    fullView.style.display = "flex"; // Show full view
+    fullView.style.flexDirection = "column";
     smallView.style.display = "none"; // Hide small view
     panel.style.height = "85vh"; // Full view height
     panel.style.bottom = "5%";
