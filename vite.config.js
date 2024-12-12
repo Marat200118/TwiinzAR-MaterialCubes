@@ -9,9 +9,9 @@ export default defineConfig({
     sourcemap: true,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, "/index.html"),
-        marius: resolve(__dirname, "/marius.html"),
-        dome: resolve(__dirname, "/dome.html"),
+        main: resolve(__dirname, "./index.html"),
+        marius: resolve(__dirname, "./marius.html"),
+        dome: resolve(__dirname, "./dome.html"),
       },
     },
   },
