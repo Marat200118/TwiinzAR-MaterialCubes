@@ -317,3 +317,29 @@ button:focus-visible {
 #ARButton {
   transition: all 0.5s ease-in-out;
 }
+
+.related-models-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#relatedModelsContainer {
+  margin-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+.related-model-card img {
+  width: 10rem;
+  border-radius: 1rem;
+}
+
+.related-model-card {
+  margin-top: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+.related-model-card p {
+  margin-top: 0 !important;
+}

@@ -3,16 +3,17 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>AR Model Placement</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
-
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script src="https://launchar.app/sdk/v1?key=ZcTXRYA2TKLnlhJKtoKRfr9UDWFLLFNx&redirect=true"></script>
   <link rel="stylesheet" href="src/style.css">
 </head>
 
-<body>
+<body data-model-id="4">
   <div id="content">
     <div id="container"></div>
     <button id="place-button">Place</button>
@@ -27,10 +28,10 @@
     <div class="buttons-container">
 
     </div>
-    
+
     <div id="infoPanel">
-      <button class="close" onclick="hideInfoPanel()">×</button>
-    
+      <button class="close" onclick="handleClose()"><ion-icon name="close-outline"></ion-icon></button>
+
       <!-- Small View -->
       <div id="smallView">
         <img src="/src/assets/TwiinzLogoOrange.svg" class="ar-twiinz-logo">
@@ -39,7 +40,7 @@
         <p id="modelCategory"><strong>Category:</strong> Category</p>
         <p id="modelMaterial"><strong>Material:</strong>Material</p>
       </div>
-    
+
       <!-- Full View -->
       <div id="fullView" style="display: none;">
         <img src="/src/assets/TwiinzLogoOrange.svg" class="ar-twiinz-logo">
@@ -52,12 +53,21 @@
         <p id="fullModelDescription">Description will go here.</p>
         <p><strong>Sustainability:</strong> <span id="fullModelSustainability">Details about sustainability.</span></p>
         <img id="fullModelImage" src="" alt="Model Image" style="width: 100%; margin-top: 10px;">
+        <div id="relatedModelsContainer">
+          <h3>Check other furniture!</h3>
+          <div id="relatedModels" class="related-models-grid"></div>
+        </div>
       </div>
     </div>
 
   </div>
-  
+
   <script src="src/main.js" type="module"></script>
+  <script>
+    const handleClose = () => {
+      document.getElementById('infoPanel').style.display = 'none';
+    }
+  </script>
 </body>
 
 </html>
