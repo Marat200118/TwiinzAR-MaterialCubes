@@ -5,7 +5,6 @@ import { resolve } from "path";
 export default defineConfig({
   root: "src/",
   build: {
-    outDir: "../dist",
     emptyOutDir: true,
     sourcemap: true,
     rollupOptions: {
