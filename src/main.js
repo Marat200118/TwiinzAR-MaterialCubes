@@ -3,12 +3,12 @@
 import * as THREE from "three";
 import { ARButton } from "three/addons/webxr/ARButton.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { createClient } from "@supabase/supabase-js";
+// import { createClient } from "@supabase/supabase-js";
 
-const SUPABASE_URL = "https://zxietxwfjlcfhtiygxhe.supabase.co";
-const SUPABASE_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp4aWV0eHdmamxjZmh0aXlneGhlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE3NTUzMzUsImV4cCI6MjA0NzMzMTMzNX0.XTeIR13UCRlT4elaeiKiDll1XRD1WoVnLsPd3QVVGDU";
-export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+// const SUPABASE_URL = "https://zxietxwfjlcfhtiygxhe.supabase.co";
+// const SUPABASE_KEY =
+//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp4aWV0eHdmamxjZmh0aXlneGhlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE3NTUzMzUsImV4cCI6MjA0NzMzMTMzNX0.XTeIR13UCRlT4elaeiKiDll1XRD1WoVnLsPd3QVVGDU";
+// export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
 let container, camera, scene, renderer, reticle, controller;
@@ -35,46 +35,42 @@ const relatedModelsContainer = document.getElementById("relatedModels");
 
 
 const fetchModelData = async (modelId) => {
-  const { data, error } = await supabase
-    .from("models")
-    .select("*")
-    .eq("id", modelId)
-    .single();
+  try {
+    const response = await fetch(`/api/models/${modelId}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch model with ID ${modelId}`);
+    }
 
-  if (error) {
+    const data = await response.json();
+    currentModelData = data;
+    console.log("Fetched model data:", currentModelData);
+    await loadModel(currentModelData.glb_url);
+  } catch (error) {
     console.error("Error fetching model data:", error);
-    return;
+    alert("Failed to load model details. Please try again later.");
   }
-
-  currentModelData = data;
-  console.log("Fetched model data:", currentModelData);
-  await loadModel(currentModelData.glb_url);
-}
+};
 
 const fetchRelatedModels = async () => {
-  const relatedModelId = modelId === "2" ? "4" : "2";
-  const { data, error } = await supabase
-    .from("models")
-    .select("*")
-    .eq("id", relatedModelId);
+  try {
+    const response = await fetch(`/api/models/related/${modelId}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch related model for ID ${modelId}`);
+    }
 
-  if (error) {
-    console.error("Error fetching related model:", error);
-    relatedModelsContainer.innerHTML = "<p>Error loading related model.</p>";
-    return;
-  }
+    const data = await response.json();
 
-  if (data && data.length > 0) {
-    const relatedPage = relatedModelId === "2" ? "/dome.html" : "/marius.html";
+    const relatedPage = modelId === "2" ? "/dome.html" : "/marius.html";
 
     relatedModelsContainer.innerHTML = `
       <div class="related-model-card" onclick="window.location='${relatedPage}'">
-        <img src="${data[0].model_image}" alt="${data[0].name}">
-        <h4>${data[0].name}</h4>
-        <p>${data[0].material}</p>
+        <img src="${data.model_image}" alt="${data.name}">
+        <h4>${data.name}</h4>
+        <p>${data.material}</p>
       </div>`;
-  } else {
-    relatedModelsContainer.innerHTML = "<p>No related models found.</p>";
+  } catch (error) {
+    console.error("Error fetching related model:", error);
+    relatedModelsContainer.innerHTML = "<p>Error loading related model.</p>";
   }
 };
 
@@ -100,7 +96,6 @@ const hideHelperBlock = () => {
   const helperBlock = document.getElementById("helper-block");
   helperBlock.classList.add("hidden");
 };
-
 
 const loadModel = async (modelUrl) => {
   const loader = new GLTFLoader();
@@ -133,7 +128,6 @@ const onSelect = () => {
     placeModel();
   }
 }
-
 
 const placeModel = () => {
   if (reticle.visible && !placedObject && currentObject) {
@@ -191,7 +185,6 @@ const showInfoPanel = (data) => {
   startBounceAnimation(panel);
 };
 
-
 const toggleInfoPanelFullView = (event) => {
   event.stopPropagation();
 
@@ -222,7 +215,6 @@ const toggleInfoPanelFullView = (event) => {
   isInfoPanelFullView = !isInfoPanelFullView;
 };
 
-
 const startBounceAnimation = (panel) => {
   stopBounceAnimation(panel);
 
@@ -237,7 +229,6 @@ const stopBounceAnimation = (panel) => {
   bounceInterval = null;
   panel.classList.remove("bounce");
 };
-
 
 const animate = (timestamp, frame) => {
   if (frame) {
