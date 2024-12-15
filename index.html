@@ -20,11 +20,19 @@
   </header>
   <div id="container">
     <div class="main-page-content">
-      <h1>Dream it, AR do it!</h1>
-      <p class="main-page-paragraph"><span>Twiinz World</span> is now on phone!
-        Check out our new AR game and build your Dream Room!</p>
-      <p class="highlight">Take a look and try it out yourself!</p>
-      <img src="src/assets/video.png" alt="video" class="video">
+      <div class="intro-view">
+        <div class="text">
+          <h1>Dream it, AR do it!</h1>
+          <p class="main-page-paragraph"><span>Twiinz World</span> is now on phone!
+            Check out our new AR game and build your Dream Room!</p>
+          <p class="highlight">Take a look and try it out yourself!</p>
+        </div>
+        <div class="intro-video">
+          <video class="video" muted autoplay loop>
+            <source src="/video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </div>
+      </div>
       <div class="how-to">
         <h2>How to?</h2>
         <div class="how-to-step">
@@ -115,9 +123,17 @@
     margin-bottom: 1rem;
   }
 
+  
   .video {
-    width: clamp(20rem, 100%, 40rem);
+    width: 25rem;
+    border-radius: .3rem;
     margin-top: 2rem;
+  }
+
+  .intro-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .highlight {
@@ -169,6 +185,13 @@
     border-radius: 1rem;
   }
 
+  .contact-info {
+    display: flex;
+    margin-top: 3rem;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .how-to-step {
     display: flex;
     justify-content: space-around;
@@ -194,8 +217,8 @@
 
   .how-to-text p {
     font-weight: 400;
-    max-width: 8rem;
-    min-width: 4rem;
+    max-width: 15ch;
+    min-width: 10ch;
   }
 
   .how-to, .about-section, .partner-section, footer {
@@ -229,5 +252,21 @@
     }
   }
 
+  @media screen and (min-width: 1024px) {
+    .link-to-ar {
+      display: none;
+    }
+    .intro-view {
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+    }
+    .video {
+      width: 35rem;
+    }
+    .how-to-text p {
+      max-width: 10rem;
+    }
+  }
 
 </style>
