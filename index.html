@@ -23,7 +23,7 @@
       <div class="intro-view">
         <div class="text">
           <h1>Dream it, AR do it!</h1>
-          <p class="main-page-paragraph"><span>Twiinz World</span> is now on phone!
+          <p class="main-page-paragraph"><span>Twiinz World</span> is now on phone!<br>
             Check out our new AR game and build your Dream Room!</p>
           <p class="highlight">Take a look and try it out yourself!</p>
         </div>
@@ -125,7 +125,7 @@
 
   
   .video {
-    width: 25rem;
+    width: 90vw;
     border-radius: .3rem;
     margin-top: 2rem;
   }
@@ -146,6 +146,7 @@
 
   .main-page-paragraph {
     font-size: 20px;
+    max-width: 50ch;
   }
 
   .main-page-paragraph span {
@@ -246,6 +247,10 @@
     text-decoration: none;
   }
 
+  .about-section p {
+    max-width: 60ch;
+  }
+
   @media screen and (min-width: 1024px) {
     .link-to-ar {
       display: none;
@@ -262,10 +267,13 @@
       align-items: center;
     }
     .video {
-      width: 35rem;
+      max-width: 35rem;
     }
     .how-to-text p {
       max-width: 10rem;
+    }
+    .gallery-container {
+      display: none;
     }
   }
 
