@@ -47,7 +47,6 @@ const fetchModelData = async (modelId) => {
     await loadModel(currentModelData.glb_url);
   } catch (error) {
     console.error("Error fetching model data:", error);
-    alert("Failed to load model details. Please try again later.");
   }
 };
 

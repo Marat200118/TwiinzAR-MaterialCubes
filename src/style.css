@@ -343,3 +343,30 @@ button:focus-visible {
 .related-model-card p {
   margin-top: 0 !important;
 }
+
+.onboarding-video {
+  width: 110vw !important;
+  height: 120vh !important;
+  left: calc(50% - 55vw) !important; 
+  position: fixed;
+  top: calc(50% - 60vh) !important;
+}
+
+.animation-text {
+  display: flex;
+  position: fixed;
+  top: 1rem;
+  flex-direction: column;
+  z-index: 1000;
+  text-align: left;
+}
+
+.animation-text h2 {
+  font-size: 2.1rem;
+  color: #CBFA56;
+}
+
+.animation-text p {
+  color: var(--creamy-white);
+  margin-top: 0;
+}
