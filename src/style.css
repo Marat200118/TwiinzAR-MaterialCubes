@@ -369,4 +369,7 @@ button:focus-visible {
 .animation-text p {
   color: var(--creamy-white);
   margin-top: 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.3;
 }
