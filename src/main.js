@@ -3,12 +3,7 @@
 import * as THREE from "three";
 import { ARButton } from "three/addons/webxr/ARButton.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-// import { createClient } from "@supabase/supabase-js";
 
-// const SUPABASE_URL = "https://zxietxwfjlcfhtiygxhe.supabase.co";
-// const SUPABASE_KEY =
-//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp4aWV0eHdmamxjZmh0aXlneGhlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE3NTUzMzUsImV4cCI6MjA0NzMzMTMzNX0.XTeIR13UCRlT4elaeiKiDll1XRD1WoVnLsPd3QVVGDU";
-// export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
 let container, camera, scene, renderer, reticle, controller;
@@ -31,8 +26,6 @@ const infoPanel = document.getElementById("infoPanel");
 
 const modelId = document.body.dataset.modelId;
 const relatedModelsContainer = document.getElementById("relatedModels");
-
-
 
 const fetchModelData = async (modelId) => {
   try {
@@ -59,7 +52,7 @@ const fetchRelatedModels = async () => {
 
     const data = await response.json();
 
-    const relatedPage = modelId === "2" ? "/dome.html" : "/marius.html";
+    const relatedPage = modelId === "2" ?  "/marius.html" : "/dome.html";
 
     relatedModelsContainer.innerHTML = `
       <div class="related-model-card" onclick="window.location='${relatedPage}'">
