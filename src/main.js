@@ -453,16 +453,23 @@ const init = async () => {
     }
   });
 
+  const onboardingVideo = document.querySelector(".onboarding-video");
+  const animationText = document.querySelector(".animation-text");
+
   if (renderer.xr) {
     renderer.xr.addEventListener("sessionstart", () => {
       console.log("XR session started.");
       arButton.classList.remove("styled-ar-button");
       arButton.classList.add("stop-ar-button-centered");
+      onboardingVideo.style.display = "none";
+      animationText.style.display = "none";
       showHelperBlock();
     });
 
     renderer.xr.addEventListener("sessionend", () => {
       console.log("XR session ended.");
+      onboardingVideo.style.display = "block";
+      animationText.style.display = "block";
       arButton.classList.remove("stop-ar-button-centered");
       arButton.classList.add("styled-ar-button");
       hideHelperBlock();
